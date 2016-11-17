@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 @interface ViewController ()
 
@@ -16,7 +17,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+    btn.frame = CGRectMake(50, 50, 100, 40);
+    [self.view addSubview:btn];
+    [btn setTitle:@"button" forState:UIControlStateNormal];
+    
+    
+    [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(id x) {
+        NSLog(@"btn clicked!");
+    }];
+    
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
